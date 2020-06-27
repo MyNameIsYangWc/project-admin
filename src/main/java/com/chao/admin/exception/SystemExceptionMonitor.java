@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
  * 异常监控类
+ * @author 杨文超
+ * @date 2020-06-27
  */
 @RestControllerAdvice
 public class SystemExceptionMonitor {

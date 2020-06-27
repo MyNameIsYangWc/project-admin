@@ -27,6 +27,5 @@ public class ResultCodeMonitor {
                 logger.warn(msg+"-"+ResultCode.SystemTimeOutCode.getMsg());
             }
         }
-        logger.warn(msg+"-"+ResultCode.SystemErrorCode.getMsg());
     }
 }
