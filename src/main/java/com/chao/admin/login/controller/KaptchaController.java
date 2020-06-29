@@ -36,7 +36,7 @@ public class KaptchaController {
      */
     @GetMapping("/kaptcha")
     public void kaptcha(HttpServletResponse response, HttpServletRequest request) throws ServletException, IOException {
-        response.setHeader("Cacha-Control","no-store,no-cache");
+        response.setHeader("Cache-Control","no-store,no-cache");
         response.setContentType("image/jpeg");
         //生成文字验证码
         String text=producer.createText();
