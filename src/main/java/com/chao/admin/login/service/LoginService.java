@@ -6,5 +6,7 @@ import org.springframework.http.HttpHeaders;
 
 public interface LoginService {
 
-    Result userLogin(User user, HttpHeaders headers);
+    Result login(User user, HttpHeaders headers);
+
+    Result logout(String username, HttpHeaders headers);
 }

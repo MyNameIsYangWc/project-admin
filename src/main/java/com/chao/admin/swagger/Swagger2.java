@@ -32,4 +32,25 @@ public class Swagger2 {
                 "",
                 "");
     }
+
+    @Bean
+    public Docket logApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("login")
+                .pathMapping("/")
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.chao.admin.login.controller"))
+                .build()
+                .apiInfo(logInfo());
+    }
+
+    private ApiInfo logInfo() {
+        return new ApiInfo("应用层登录服务API",
+                "",
+                "1.0",
+                "",
+                "杨文超",
+                "",
+                "");
+    }
 }

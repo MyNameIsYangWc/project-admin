@@ -5,17 +5,25 @@ import com.chao.admin.restTemplate.CommonRestTemplate;
 import com.chao.admin.result.Result;
 import com.chao.admin.result.ResultCodeMonitor;
 import com.chao.admin.vo.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
 import static com.chao.admin.login.common.BaseUrl.USER_LOGIN;
+import static com.chao.admin.login.common.BaseUrl.USER_LOGOUT;
 
 @Service
 public class LoginServiceImpl implements LoginService {
 
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     private CommonRestTemplate commonRestTemplate;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     /**
      * 登录
@@ -24,10 +32,25 @@ public class LoginServiceImpl implements LoginService {
      * @return
      */
     @Override
-    public Result userLogin(User user, HttpHeaders headers) {
+    public Result login(User user, HttpHeaders headers) {
 
         Result result = commonRestTemplate.post(USER_LOGIN, user, headers);
         ResultCodeMonitor.handler(result,"登录");
+        return result;
+    }
+
+    /**
+     * 退出
+     * @param username
+     * @param headers
+     * @author 杨文超
+     * @date 2020-06-29
+     */
+    @Override
+    public Result logout(String username, HttpHeaders headers) {
+
+        Result result = commonRestTemplate.get(USER_LOGOUT,headers,username);
+        ResultCodeMonitor.handler(result,"退出");
         return result;
     }
 }
