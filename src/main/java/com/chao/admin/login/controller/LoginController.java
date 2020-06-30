@@ -73,10 +73,8 @@ public class LoginController {
            public void run() {
                if(ResultCode.successCode.getCode()==upload.getCode()){
                    // todo 此坑注意，上传文件的请求头需要修改，否则请求失败
-                   HttpHeaders httpHeaders = new HttpHeaders();
-                   httpHeaders.add("Content-type","application/json");
-                   httpHeaders.add("Authorization",headers.get("Authorization").toString());
-                   loginService.upload( upload.getData().toString(),username, httpHeaders);
+                   headers.set("Content-type","application/json");
+                   loginService.upload( upload.getData().toString(),username, headers);
                }
            }
         });
