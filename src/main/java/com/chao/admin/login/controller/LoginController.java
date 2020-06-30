@@ -1,8 +1,8 @@
 package com.chao.admin.login.controller;
 
+import com.chao.admin.fileTools.FileUtils;
 import com.chao.admin.login.service.LoginService;
 import com.chao.admin.result.Result;
-import com.chao.admin.result.ResultCode;
 import com.chao.admin.vo.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.util.UUID;
 
 /**
  * 登录控制
@@ -27,6 +25,8 @@ public class LoginController {
 
     @Autowired
     private LoginService loginService;
+    @Autowired
+    private FileUtils fileUtils;
 
     /**
      * 登录
@@ -51,7 +51,7 @@ public class LoginController {
      * 用户头像上传
      * @param file
      * @author 杨文超
-     * @date 2020-06-29
+     * @date 2020-06-30
      */
     @ApiImplicitParams({
 
@@ -59,76 +59,17 @@ public class LoginController {
     })
     @PostMapping(value = "/upload")
     public Result login(@RequestParam("file")MultipartFile file){
-        if(file.isEmpty()){
-            return new Result(ResultCode.businErrorCode.getCode(),"未上传头像");
-        }
-        String fileName = UUID.randomUUID().toString();
-        String originalFilename = file.getOriginalFilename();
-        String[] split = originalFilename.split(".");
-        System.out.println(split);
-        String s = split[split.length];
-        String path = "D:/test" ;
-        File dest = new File(path + "/" + fileName+"."+s);
-        if(!dest.getParentFile().exists()){ //判断文件父目录是否存在
-            dest.getParentFile().mkdir();
-        }
-        try {
-            file.transferTo(dest); //保存文件
-            return new Result(ResultCode.successCode.getCode(),ResultCode.successCode.getMsg());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new Result(ResultCode.businErrorCode.getCode(),"上传头像失败",e.getMessage());
-        }
+        return fileUtils.upload(file);
     }
 
     /**
-     * 用户头像下载
+     * 获取用户头像
      * @author 杨文超
-     * @date 2020-06-29
+     * @date 2020-06-30
      */
-    @ApiImplicitParams({
-
-            @ApiImplicitParam(name = "Accept",value = "",required = false,dataType = "String",paramType = "header",defaultValue = "application/json")
-    })
-    @RequestMapping("/download")
-    public String downLoad(HttpServletResponse response) throws UnsupportedEncodingException {
-        String filename="2.xlsx";
-        String filePath = "D:/download";
-        File file = new File(filePath + "/" + filename);
-        if(file.exists()){ //判断文件父目录是否存在
-            response.setContentType("application/vnd.ms-excel;charset=UTF-8");
-            response.setCharacterEncoding("UTF-8");
-            // response.setContentType("application/force-download");
-            response.setHeader("Content-Disposition", "attachment;fileName=" +   java.net.URLEncoder.encode(filename,"UTF-8"));
-            byte[] buffer = new byte[1024];
-            FileInputStream fis = null; //文件输入流
-            BufferedInputStream bis = null;
-
-            OutputStream os = null; //输出流
-            try {
-                os = response.getOutputStream();
-                fis = new FileInputStream(file);
-                bis = new BufferedInputStream(fis);
-                int i = bis.read(buffer);
-                while(i != -1){
-                    os.write(buffer);
-                    i = bis.read(buffer);
-                }
-
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            System.out.println("----------file download---" + filename);
-            try {
-                bis.close();
-                fis.close();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-        return null;
+    @GetMapping("/userImage")
+    public void userImage(String fileId, HttpServletResponse response) throws Exception {
+        fileUtils.userImage(fileId,response);
     }
 
     /**

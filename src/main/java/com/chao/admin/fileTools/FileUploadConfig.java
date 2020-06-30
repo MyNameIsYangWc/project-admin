@@ -1,4 +1,4 @@
-package com.chao.admin.fileTools.config;
+package com.chao.admin.fileTools;
 
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.context.annotation.Bean;
