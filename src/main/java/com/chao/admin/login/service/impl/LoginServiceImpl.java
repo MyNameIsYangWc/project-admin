@@ -65,8 +65,6 @@ public class LoginServiceImpl implements LoginService {
         attachment.setFileId(fileId);
         attachment.setFileName(username);
         attachment.setUsername(username);
-        attachment.setFileTypeCd(Constants.FILE_TYPE_CD_ONE);
-        attachment.setFileTypeName(Constants.FILE_TYPE_NAME_ONE);
         Result result = commonRestTemplate.post(UPLOAD,attachment,headers);
         ResultCodeMonitor.handler(result,"用户头像上传");
         //todo 上传异常 使用websocket通知用户

@@ -7,7 +7,4 @@ package com.chao.admin.common;
  */
 public interface Constants {
 
-    //附件表
-    String FILE_TYPE_CD_ONE="1";
-    String FILE_TYPE_NAME_ONE="用户头像";
 }
