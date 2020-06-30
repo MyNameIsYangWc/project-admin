@@ -8,7 +8,6 @@ import com.chao.admin.vo.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +21,6 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private CommonRestTemplate commonRestTemplate;
-    @Autowired
-    private RedisTemplate redisTemplate;
 
     /**
      * 登录

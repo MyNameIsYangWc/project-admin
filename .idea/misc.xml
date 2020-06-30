@@ -10,6 +10,9 @@
       </list>
     </option>
   </component>
+  <component name="ProjectPlainTextFileTypeManager">
+    <file url="file://$PROJECT_DIR$/../project-domain/src/main/resources/generatorConfig.xml" />
+  </component>
   <component name="ProjectResources">
     <resource url="http://mybatis.org/dtd/mybatis-3-mapper.dtd" location="$PROJECT_DIR$/../project-domain" />
   </component>

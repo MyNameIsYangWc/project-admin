@@ -58,7 +58,7 @@ public class LoginController {
             @ApiImplicitParam(name = "Accept",value = "",required = false,dataType = "String",paramType = "header",defaultValue = "application/json")
     })
     @PostMapping(value = "/upload")
-    public Result login(@RequestParam("file")MultipartFile file){
+    public Result login(@RequestParam("file")MultipartFile file,@RequestHeader HttpHeaders headers){
         return fileUtils.upload(file);
     }
 
