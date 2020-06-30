@@ -3,6 +3,8 @@ package com.chao.admin.login.controller;
 import com.chao.admin.fileTools.FileUtils;
 import com.chao.admin.login.service.LoginService;
 import com.chao.admin.result.Result;
+import com.chao.admin.result.ResultCode;
+import com.chao.admin.thread.MyThreadPoolExecutor;
 import com.chao.admin.vo.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -54,12 +56,31 @@ public class LoginController {
      * @date 2020-06-30
      */
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "username",value = "账号",required = true,dataType = "String",paramType = "query"),
 
+            @ApiImplicitParam(name = "Authorization",value = "token",required = true,dataType = "String",paramType = "header"),
             @ApiImplicitParam(name = "Accept",value = "",required = false,dataType = "String",paramType = "header",defaultValue = "application/json")
     })
     @PostMapping(value = "/upload")
-    public Result login(@RequestParam("file")MultipartFile file,@RequestHeader HttpHeaders headers){
-        return fileUtils.upload(file);
+    public Result upload(
+            @RequestParam("file")MultipartFile file,
+            @RequestParam String username,
+            @RequestHeader HttpHeaders headers){
+        Result upload = fileUtils.upload(file);
+        //异步执行将fileId存入
+        MyThreadPoolExecutor.getThreadPoolExecutor().submit(new Runnable() {
+           @Override
+           public void run() {
+               if(ResultCode.successCode.getCode()==upload.getCode()){
+                   // todo 此坑注意，上传文件的请求头需要修改，否则请求失败
+                   HttpHeaders httpHeaders = new HttpHeaders();
+                   httpHeaders.add("Content-type","application/json");
+                   httpHeaders.add("Authorization",headers.get("Authorization").toString());
+                   loginService.upload( upload.getData().toString(),username, httpHeaders);
+               }
+           }
+        });
+        return upload;
     }
 
     /**

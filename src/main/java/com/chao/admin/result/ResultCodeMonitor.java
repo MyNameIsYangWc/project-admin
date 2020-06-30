@@ -25,6 +25,12 @@ public class ResultCodeMonitor {
                 //203超时
             }else if(result.getCode()==ResultCode.SystemTimeOutCode.getCode()){
                 logger.warn(msg+"-"+ResultCode.SystemTimeOutCode.getMsg());
+                //204无效token
+            }else if(result.getCode()==ResultCode.InvalidToken.getCode()){
+                logger.warn(ResultCode.InvalidToken.getMsg());
+                //403 无权限
+            }else if(result.getCode()==ResultCode.AccessDenied.getCode()){
+                logger.warn(ResultCode.AccessDenied.getMsg());
             }
         }
     }

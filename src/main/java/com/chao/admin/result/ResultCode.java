@@ -5,7 +5,9 @@ public enum ResultCode {
     successCode(200,"成功"),
     businErrorCode(201,"业务异常"),
     SystemErrorCode(202,"系统异常"),
-    SystemTimeOutCode(203,"系统超时熔断");
+    SystemTimeOutCode(203,"系统超时熔断"),
+    InvalidToken(204,"invalid token"),
+    AccessDenied(403,"Access Denied");
 
     private int code;
     private String msg;
