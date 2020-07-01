@@ -43,7 +43,7 @@ public class KaptchaController {
         //生成图片验证码
         BufferedImage image=producer.createImage(text);
         //保存验证码到session
-        request.getSession().setAttribute(Constants.KAPTCHA_SESSION_KEY,text);
+//        request.getSession().setAttribute(Constants.KAPTCHA_SESSION_KEY,text);
         ServletOutputStream out = response.getOutputStream();
         ImageIO.write(image,"jpg",out);
         IOUtils.close(out);
