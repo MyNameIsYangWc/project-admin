@@ -11,8 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
+/**
+ * 用户中心操作类
+ * @author 杨文超
+ * @date 2020-07-01
+ */
 @RestController
 @RequestMapping("/user")
 @Api(value = "UserController",description = "用户中心")
@@ -40,19 +43,22 @@ public class UserController {
 
 
     /**
-     * 修改密码
+     * 重置密码
      * user：账号，旧密码，新密码
+     * @author 杨文超
+     * @date 2020-07-01
      */
-    @ApiOperation(value = "修改密码",notes = "修改密码")
+    @ApiOperation(value = "重置密码",notes = "重置密码")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "user",value = "用户信息",required = true,dataType = "map",paramType = "body"),
+            @ApiImplicitParam(name = "user",value = "用户信息",required = true,dataType = "User",paramType = "body"),
 
+            @ApiImplicitParam(name = "Authorization",value = "token",required = true,dataType = "String",paramType = "header"),
             @ApiImplicitParam(name = "Accept",value = "",required = false,dataType = "String",paramType = "header",defaultValue = "application/json")
     })
-    @PostMapping("/modifyPwd")
-    public Result modifyPwd(@RequestHeader HttpHeaders headers, @RequestBody Map user){
+    @PostMapping("/resetPwd")
+    public Result resetPwd(@RequestHeader HttpHeaders headers, @RequestBody User user){
 
-        Result result = userService.modifyPwd(user, headers);
+        Result result = userService.resetPwd(user, headers);
         return result;
     }
 

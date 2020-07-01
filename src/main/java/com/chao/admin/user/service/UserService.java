@@ -10,7 +10,5 @@ public interface UserService {
 
     Result insertUser(User user, HttpHeaders headers);
 
-    Result userLogin(User user, HttpHeaders headers);
-
-    Result modifyPwd(Map user, HttpHeaders headers);
+    Result resetPwd(User user, HttpHeaders headers);
 }
