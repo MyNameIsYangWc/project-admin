@@ -24,7 +24,7 @@ public class AopInterceptor {
      * @author 杨文超
      * @date 2020-07-02
      */
-    @Pointcut("execution(* com.chao.admin.*.*..*.*(..))")
+    @Pointcut("execution(* com.chao.admin.*.controller..*.*(..))")
     public void pointcut(){}
 
     /**
