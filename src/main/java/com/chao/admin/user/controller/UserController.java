@@ -43,8 +43,6 @@ public class UserController {
         return result;
     }
 
-
-
     /**
      * 重置密码
      * user：账号，旧密码，新密码
@@ -64,8 +62,7 @@ public class UserController {
                 StringUtils.isBlank(user.getString("oldPassword")) || StringUtils.isBlank(user.getString("newPassword"))){
             return new Result(ResultCode.businErrorCode.getCode(),"参数错误");
         }
-        Result result = userService.resetPwd(user, headers);
-        return result;
+        return userService.resetPwd(user, headers);
     }
 
     /**

@@ -1,8 +1,7 @@
-package com.chao.admin.exception;
+package com.chao.admin.interceptor;
 
 import com.chao.admin.result.Result;
 import com.chao.admin.result.ResultCode;
-import org.apache.catalina.connector.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +12,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.servlet.http.HttpServletMapping;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.MappingMatch;
-import java.util.Enumeration;
-import java.util.Map;
 
 /**
  * 异常监控类
@@ -53,6 +48,8 @@ public class SystemExceptionMonitor{
      * 全局异常捕捉处理
      * @param e
      * @return
+     * @author 杨文超
+     * @date 2020-06-27
      */
     @ExceptionHandler(Exception.class)
     public Result errorHandler(Exception e) {
