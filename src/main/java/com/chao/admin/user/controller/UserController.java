@@ -1,12 +1,15 @@
 package com.chao.admin.user.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.chao.admin.result.Result;
+import com.chao.admin.result.ResultCode;
 import com.chao.admin.user.service.UserService;
 import com.chao.admin.vo.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
@@ -50,14 +53,17 @@ public class UserController {
      */
     @ApiOperation(value = "重置密码",notes = "重置密码")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "user",value = "用户信息",required = true,dataType = "User",paramType = "body"),
+            @ApiImplicitParam(name = "user",value = "用户信息",required = true,dataType = "JSONObject",paramType = "body"),
 
             @ApiImplicitParam(name = "Authorization",value = "token",required = true,dataType = "String",paramType = "header"),
             @ApiImplicitParam(name = "Accept",value = "",required = false,dataType = "String",paramType = "header",defaultValue = "application/json")
     })
     @PostMapping("/resetPwd")
-    public Result resetPwd(@RequestHeader HttpHeaders headers, @RequestBody User user){
-
+    public Result resetPwd(@RequestHeader HttpHeaders headers, @RequestBody JSONObject user){
+        if(StringUtils.isBlank(user.getString("username")) ||
+                StringUtils.isBlank(user.getString("oldPassword")) || StringUtils.isBlank(user.getString("newPassword"))){
+            return new Result(ResultCode.businErrorCode.getCode(),"参数错误");
+        }
         Result result = userService.resetPwd(user, headers);
         return result;
     }

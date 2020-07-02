@@ -1,5 +1,6 @@
 package com.chao.admin.user.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.chao.admin.restTemplate.CommonRestTemplate;
 import com.chao.admin.result.Result;
 import com.chao.admin.result.ResultCodeMonitor;
@@ -36,7 +37,8 @@ public class UserServiceImpl implements UserService {
      * @date 2020-07-01
      */
     @Override
-    public Result resetPwd(User user, HttpHeaders headers) {
+    public Result resetPwd(JSONObject user, HttpHeaders headers) {
+
         Result result = commonRestTemplate.post(RESET_PWD, user, headers);
         ResultCodeMonitor.handler(result,"重置密码");
         return result;

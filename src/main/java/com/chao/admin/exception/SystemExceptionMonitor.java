@@ -2,8 +2,10 @@ package com.chao.admin.exception;
 
 import com.chao.admin.result.Result;
 import com.chao.admin.result.ResultCode;
+import org.apache.catalina.connector.Request;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,15 +13,24 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.servlet.http.HttpServletMapping;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.MappingMatch;
+import java.util.Enumeration;
+import java.util.Map;
+
 /**
  * 异常监控类
  * @author 杨文超
  * @date 2020-06-27
  */
 @RestControllerAdvice
-public class SystemExceptionMonitor {
+public class SystemExceptionMonitor{
 
     private Logger logger= LoggerFactory.getLogger(SystemExceptionMonitor.class);
+
+    @Autowired
+    HttpServletRequest httpServletRequest;
 
     /**
      * 应用到所有@RequestMapping注解方法，在其执行之前初始化数据绑定器
@@ -34,7 +45,8 @@ public class SystemExceptionMonitor {
      */
     @ModelAttribute
     public void addAttributes(Model model) {
-        model.addAttribute("Data", model);
+        System.out.println("3");
+//        model.addAttribute("Data", model);
     }
 
     /**
@@ -47,5 +59,4 @@ public class SystemExceptionMonitor {
         logger.error("系统异常，错误信息：",e);
         return new Result(ResultCode.SystemErrorCode.getCode(),ResultCode.SystemErrorCode.getMsg(),e.getMessage());
     }
-
 }
