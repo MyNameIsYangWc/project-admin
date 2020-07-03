@@ -1,5 +1,6 @@
 package com.chao.admin.login.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.chao.admin.fileTools.FileUtils;
 import com.chao.admin.login.service.LoginService;
 import com.chao.admin.result.Result;
@@ -9,6 +10,8 @@ import com.chao.admin.vo.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +27,8 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 @Api(value = "LoginController",description = "登录控制")
 public class LoginController {
+
+    private Logger logger= LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private LoginService loginService;
@@ -45,8 +50,8 @@ public class LoginController {
     @PostMapping(value = "/login")
     public Result login(@RequestBody User user,@RequestHeader HttpHeaders headers){
 
-        Result result = loginService.login(user, headers);
-        return result;
+        logger.info("用户登录 || 参数 user："+ JSONObject.toJSONString(user));
+        return loginService.login(user, headers);
     }
 
     /**
@@ -66,6 +71,8 @@ public class LoginController {
             @RequestParam("file")MultipartFile file,
             @RequestParam String username,
             @RequestHeader HttpHeaders headers){
+
+        logger.info("用户头像上传/修改 || 参数 username："+ username);
         Result upload = fileUtils.upload(file);
         //异步执行将fileId存入
         MyThreadPoolExecutor.getThreadPoolExecutor().submit(new Runnable() {
@@ -107,6 +114,7 @@ public class LoginController {
     @GetMapping("/logout")
     public Result logout(@RequestParam String username,@RequestHeader HttpHeaders headers){
 
+        logger.info("用户退出登录 || 参数 username："+ username);
         return loginService.logout(username, headers);
     }
 }

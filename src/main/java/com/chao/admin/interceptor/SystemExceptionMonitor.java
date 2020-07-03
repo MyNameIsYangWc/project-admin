@@ -40,7 +40,6 @@ public class SystemExceptionMonitor{
      */
     @ModelAttribute
     public void addAttributes(Model model) {
-        System.out.println("3");
 //        model.addAttribute("Data", model);
     }
 

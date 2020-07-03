@@ -1,6 +1,5 @@
 package com.chao.admin.login.service.impl;
 
-import com.chao.admin.common.Constants;
 import com.chao.admin.login.service.LoginService;
 import com.chao.admin.restTemplate.CommonRestTemplate;
 import com.chao.admin.result.Result;
@@ -17,8 +16,6 @@ import static com.chao.admin.login.common.BaseUrl.*;
 
 @Service
 public class LoginServiceImpl implements LoginService {
-
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private CommonRestTemplate commonRestTemplate;
