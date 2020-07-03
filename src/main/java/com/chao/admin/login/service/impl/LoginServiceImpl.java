@@ -24,7 +24,8 @@ public class LoginServiceImpl implements LoginService {
      * 登录
      * @param user
      * @param headers
-     * @return
+     * @author 杨文超
+     * @date 2020-06-27
      */
     @Override
     public Result login(User user, HttpHeaders headers) {

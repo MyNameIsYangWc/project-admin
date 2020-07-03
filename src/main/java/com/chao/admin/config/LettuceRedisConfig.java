@@ -20,6 +20,8 @@ import java.time.Duration;
 
 /**
  * redis配置
+ * @author 杨文超
+ * @date 2020-06-30
  */
 @Configuration
 public class LettuceRedisConfig {

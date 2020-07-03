@@ -1,7 +1,7 @@
 package com.chao.admin.login.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.chao.admin.fileTools.FileUtils;
+import com.chao.admin.toolsUtils.FileUtils;
 import com.chao.admin.login.service.LoginService;
 import com.chao.admin.result.Result;
 import com.chao.admin.result.ResultCode;

@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import static com.chao.admin.toolsUtils.DateUtils.getCurrentTimeLong;
+
 @Component
 public class CommonRestTemplate {
 
@@ -32,18 +34,15 @@ public class CommonRestTemplate {
     @HystrixCommand(fallbackMethod = "getBack")
     public Result get(String url, HttpHeaders headers, Object...uriVariables){
 
-        logger.info("GET请求开始:");
-        logger.info("url:"+url);
-        logger.info("uriVariables"+uriVariables);
+        logger.info(String.format("远程服务URL：%s || GET请求",url));
+        logger.info(String.format("uriVariables参数：%s",uriVariables));
 
-        long start=System.currentTimeMillis();
+        long start=getCurrentTimeLong();
         HttpEntity<Object> entity = new HttpEntity<Object>(null,headers);
-
         ResponseEntity<Result> exchange = restTemplate.exchange(url, HttpMethod.GET, entity,
                 new ParameterizedTypeReference<Result>(){},uriVariables);
 
-        long end=System.currentTimeMillis();
-        logger.info(url+"接口请求结束￥时长："+(end-start));
+        logger.info(url+"接口请求结束￥时长："+(getCurrentTimeLong()-start));
         return exchange.getBody();
     }
 
@@ -58,20 +57,15 @@ public class CommonRestTemplate {
     @HystrixCommand(fallbackMethod = "postBack")
     public Result post(String url, Object data, HttpHeaders headers, Object...uriVariables){
 
-        logger.info("POST请求开始:");
-        logger.info("url:"+url);
-        logger.info("Data:"+ JSONObject.toJSONString(data));
-        logger.info("uriVariables"+uriVariables);
+        logger.info(String.format("远程服务URL：%s || POST请求",url));
+        logger.info(String.format("entity参数：%s,uriVariables参数：%s",JSONObject.toJSONString(data),uriVariables));
 
-        long start=System.currentTimeMillis();
+        long start = getCurrentTimeLong();
         HttpEntity<Object> entity = new HttpEntity<Object>(data,headers);
-
         ResponseEntity<Result> exchange = restTemplate.exchange(url, HttpMethod.POST, entity,
                 new ParameterizedTypeReference<Result>(){},uriVariables);
 
-        long end=System.currentTimeMillis();
-        logger.info(url+"接口请求结束￥时长："+(end-start));
-
+        logger.info(url+"接口请求结束￥时长："+(getCurrentTimeLong()-start));
         return exchange.getBody();
     }
 

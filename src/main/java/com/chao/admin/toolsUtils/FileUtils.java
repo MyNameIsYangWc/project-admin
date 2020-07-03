@@ -1,4 +1,4 @@
-package com.chao.admin.fileTools;
+package com.chao.admin.toolsUtils;
 
 import com.chao.admin.result.Result;
 import com.chao.admin.result.ResultCode;

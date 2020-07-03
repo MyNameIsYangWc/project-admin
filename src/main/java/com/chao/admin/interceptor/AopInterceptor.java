@@ -1,8 +1,8 @@
 package com.chao.admin.interceptor;
 
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,8 +37,8 @@ public class AopInterceptor {
      * @author 杨文超
      * @date 2020-07-03
      */
-    @Around("pointcut()")
-    public void before(ProceedingJoinPoint point){
+    @Before("pointcut()")
+    public void before(JoinPoint point){
         HttpServletRequest request=
                 ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         logger.info(String.format("被请求URL:%s || %s请求",request.getRequestURL(),request.getMethod()));
