@@ -41,6 +41,6 @@ public class AopInterceptor {
     public void before(JoinPoint point){
         HttpServletRequest request=
                 ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        logger.info(String.format("被请求URL:%s || %s请求",request.getRequestURL(),request.getMethod()));
+        logger.info("被请求URL:{} || {}请求",request.getRequestURL(),request.getMethod());
     }
 }
