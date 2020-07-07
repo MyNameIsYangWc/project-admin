@@ -6,6 +6,8 @@ public interface BaseUrl extends BaseHost {
      String USER_LOGIN=PROJECT_DOMAIN+"/login";
      //上传头像
      String UPLOAD=PROJECT_DOMAIN+"/attachment/upload";
+     //注册
+     String REGISTER_USER=PROJECT_DOMAIN+"/user//register";
      //用户注销
      String USER_LOGOUT=PROJECT_DOMAIN+"/userlogout?username={username}";
 

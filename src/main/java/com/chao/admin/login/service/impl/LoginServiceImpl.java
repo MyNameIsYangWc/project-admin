@@ -6,8 +6,6 @@ import com.chao.admin.result.Result;
 import com.chao.admin.result.ResultCodeMonitor;
 import com.chao.admin.vo.Attachment;
 import com.chao.admin.vo.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
@@ -66,5 +64,17 @@ public class LoginServiceImpl implements LoginService {
         Result result = commonRestTemplate.post(UPLOAD,attachment,headers);
         ResultCodeMonitor.handler(result,"用户头像上传");
         //todo 上传异常 使用websocket通知用户
+    }
+
+    /**
+     * 用户注册
+     * @author 杨文超
+     * @date 2020-07-07
+     */
+    @Override
+    public Result registerUser(User user, HttpHeaders headers) {
+        Result result = commonRestTemplate.post(REGISTER_USER,user,headers);
+        ResultCodeMonitor.handler(result,"用户注册");
+        return result;
     }
 }

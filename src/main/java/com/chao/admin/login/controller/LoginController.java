@@ -1,15 +1,16 @@
 package com.chao.admin.login.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.chao.admin.toolsUtils.FileUtils;
 import com.chao.admin.login.service.LoginService;
 import com.chao.admin.result.Result;
 import com.chao.admin.result.ResultCode;
 import com.chao.admin.thread.MyThreadPoolExecutor;
+import com.chao.admin.toolsUtils.FileUtils;
 import com.chao.admin.vo.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,5 +117,22 @@ public class LoginController {
 
         logger.info("用户退出登录 || 参数 username："+ username);
         return loginService.logout(username, headers);
+    }
+
+    /**
+     * 用户注册
+     * @author 杨文超
+     * @date 2020-07-07
+     */
+    @ApiOperation(value = "用户注册",notes = "用户注册")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "user",value = "用户信息",required = true,dataType = "User",paramType = "body"),
+
+            @ApiImplicitParam(name = "Accept",value = "",required = false,dataType = "String",paramType = "header",defaultValue = "application/json")
+    })
+    @PostMapping("/register")
+    public Result registerUser(@RequestBody User user,@RequestHeader HttpHeaders headers){
+
+        return loginService.registerUser(user,headers);
     }
 }

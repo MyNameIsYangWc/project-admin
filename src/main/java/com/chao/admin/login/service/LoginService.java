@@ -11,4 +11,6 @@ public interface LoginService {
     Result logout(String username, HttpHeaders headers);
 
     void upload(String fileId,String username, HttpHeaders headers);
+
+    Result registerUser(User user, HttpHeaders headers);
 }
