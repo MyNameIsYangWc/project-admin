@@ -8,7 +8,6 @@ public class User {
     private String password;
     private Collection authorities;
     private boolean enabled;
-    private String token;
     private String fileId;
 
     public String getUsername() {
@@ -41,14 +40,6 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 
     public String getFileId() {
