@@ -56,6 +56,19 @@ public class CommonRestTemplate {
      */
     @HystrixCommand(fallbackMethod = "postBack")
     public Result post(String url, Object data, HttpHeaders headers, Object...uriVariables){
+        ResponseEntity<Result> exchange = postResp(url, data, headers, uriVariables);
+        return exchange.getBody();
+    }
+
+    /**
+     * post请求,携带响应头请求头
+     * @param url
+     * @param data
+     * @param headers
+     * @param uriVariables
+     * @return
+     */
+    public ResponseEntity<Result> postResp(String url, Object data, HttpHeaders headers, Object...uriVariables){
 
         logger.info("远程服务URL：{} || POST请求",url);
         logger.info("entity参数：{},uriVariables参数：{}",JSONObject.toJSONString(data),uriVariables);
@@ -66,7 +79,7 @@ public class CommonRestTemplate {
                 new ParameterizedTypeReference<Result>(){},uriVariables);
 
         logger.info(url+"接口请求结束￥时长："+(getCurrentTimeLong()-start));
-        return exchange.getBody();
+        return exchange;
     }
 
     //post请求降级方法

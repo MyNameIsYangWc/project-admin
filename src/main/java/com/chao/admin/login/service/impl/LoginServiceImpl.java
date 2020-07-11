@@ -8,6 +8,7 @@ import com.chao.admin.vo.Attachment;
 import com.chao.admin.vo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import static com.chao.admin.login.common.BaseUrl.*;
@@ -26,10 +27,10 @@ public class LoginServiceImpl implements LoginService {
      * @date 2020-06-27
      */
     @Override
-    public Result login(User user, HttpHeaders headers) {
+    public ResponseEntity<Result> login(User user, HttpHeaders headers) {
 
-        Result result = commonRestTemplate.post(USER_LOGIN, user, headers);
-        ResultCodeMonitor.handler(result,"登录");
+        ResponseEntity<Result> result = commonRestTemplate.postResp(USER_LOGIN, user, headers);
+        ResultCodeMonitor.handler(result.getBody(),"登录");
         return result;
     }
 
